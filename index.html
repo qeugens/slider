@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Sliders</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style media="screen">
+      body {
+        padding: 10px;
+      }
+      .carousel {
+        position: relative;
+        left: 200px;
+        width: 914px;
+        padding: 10px 40px;
+        border: 1px solid #CCC;
+        border-radius: 15px;
+        background: black;
+      }
+      .carousel img {
+        width: 300px;
+        height: 300px;
+        border-radius: 15px;
+        margin: 0 7px 0 0;
+        display: block;
+      }
+      .arrow {
+        position: absolute;
+        top: 60px;
+        padding: 0;
+        background: #ddd;
+        border-radius: 15px;
+        border: 1px solid gray;
+        line-height: 24px;
+        color: #444;
+        display: block;
+      }
+
+      .arrow:hover {
+        background: #ccc;
+        cursor: pointer;
+      }
+
+      .prev {
+        left: 7px;
+        top: 150px;
+      }
+
+      .next {
+        right: 7px;
+        top: 150px;
+      }
+
+      .gallery {
+        width: 914px;
+        overflow: hidden;
+      }
+
+      .gallery ul {
+        height: 300px;
+        width: 9999px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        transition: margin-left 300ms;
+        font-size: 0;
+      }
+
+      .gallery li {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="carousel" class="carousel">
+    <button class="arrow prev">⇦</button>
+    <div class="gallery">
+      <ul class="images">
+        <li><img src="images/1.png"></li>
+        <li><img src="images/2.png"></li>
+        <li><img src="images/3.png"></li>
+        <li><img src="images/4.png"></li>
+        <li><img src="images/5.png"></li>
+        <li><img src="images/6.png"></li>
+        <li><img src="images/7.png"></li>
+        <li><img src="images/8.png"></li>
+        <li><img src="images/9.png"></li>
+        <li><img src="images/10.png"></li>
+      </ul>
+    </div>
+    <button class="arrow next">⇨</button>
+  </div>
+  <script>
+    let i = 1;
+    for(let li of carousel.querySelectorAll('li')) {
+      li.style.position = 'relative';
+      li.insertAdjacentHTML('beforeend', `<span style="position:absolute;left:0;top:0">${i}</span>`);
+      i++;
+    }
+
+    let width = 307;
+    let count = 3;
+
+    let list = carousel.querySelector('ul');
+    let listElems = carousel.querySelectorAll('li');
+
+    let position = 0;
+
+    carousel.querySelector('.prev').onclick = function() {
+      position += width * count;
+
+      position = Math.min(position, 0)
+      list.style.marginLeft = position + 'px';
+    };
+
+    carousel.querySelector('.next').onclick = function() {
+      position -= width * count;
+
+      position = Math.max(position, -width * (listElems.length - count));
+      list.style.marginLeft = position + 'px';
+    };
+  </script>
+  </body>
+</html>
